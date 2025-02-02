@@ -5,6 +5,15 @@ class MarkDownParse:
     def __init__(self):
         self
 
+    def extract_markdown_images(self, text):
+        split_text_list = re.findall(r"\!\[(.*?)\]\((.*?)\)", text)
+        #print(f"split_text_list: {split_text_list}")
+        return split_text_list
+    
+    def extract_markdown_links(self, text):
+        split_text_list = re.findall(r"\[(.*?)\]\((.*?)\)", text)
+        return split_text_list
+
     def parse_delimiter_text(self, old_node_parts, old_node, delimiter, text_type):
         new_nodes_list = []
         for index, value in enumerate(old_node_parts):
