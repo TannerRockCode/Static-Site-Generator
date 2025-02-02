@@ -27,6 +27,14 @@ class TestMarkDownParse(unittest.TestCase):
         test_text = "This is text with a link [to boot dev](https://www.boot.dev) and [to youtube](https://www.youtube.com/@bootdotdev)"
         self.assertExtractMarkdownLinks(test_text)
 
+    def test_split_nodes_images(self):
+        node = TextNode("This is text with a ![rick roll](https://i.imgur.com/aKaOqIh.gif) and ![obi wan](https://i.imgur.com/fJRm4Vk.jpeg)", TextType.TEXT)
+        self.assertSplitNodesImages([node])
+
+    def test_split_nodes_links(self):
+        node = TextNode("This is text with a link [to boot dev](https://www.boot.dev) and [to youtube](https://www.youtube.com/@bootdotdev)", TextType.TEXT)
+        self.assertSplitNodesLinks([node])
+
     def assertSplitNodesDelimiterTwoBold(self, new_nodes):
         expected_nodes_list = [TextNode("This is text with a ", TextType.TEXT), TextNode("bolded phrase", TextType.BOLD), TextNode(" in the middle", TextType.TEXT), TextNode("This is text", TextType.BOLD), TextNode(" with a bolded phrase in the beginning", TextType.TEXT)]
         if new_nodes != expected_nodes_list:
@@ -52,7 +60,20 @@ class TestMarkDownParse(unittest.TestCase):
         if extracted_list_of_tuples != expected_outcome:
             raise Exception("AssertExtractMarkDownLinks did not return expected result!")
 
-    
+    def assertSplitNodesImages(self, old_nodes):
+        markdown = MarkDownParse()
+        split_nodes = markdown.split_nodes_image(old_nodes)
+        expected_result = [TextNode("This is text with a ", TextType.TEXT, None), TextNode("rick roll", TextType.IMAGE, "https://i.imgur.com/aKaOqIh.gif"), TextNode(" and ", TextType.TEXT, None), TextNode("obi wan", TextType.IMAGE, "https://i.imgur.com/fJRm4Vk.jpeg"),]
+        if split_nodes != expected_result:
+            raise Exception("AssertSplitNodesImages did not return expected result!")
+        
+    def assertSplitNodesLinks(self, old_nodes):
+        markdown = MarkDownParse()
+        split_nodes = markdown.split_nodes_link(old_nodes)
+        expected_result = [TextNode("This is text with a link ", TextType.TEXT), TextNode("to boot dev", TextType.LINK, "https://www.boot.dev"), TextNode(" and ", TextType.TEXT), TextNode("to youtube", TextType.LINK, "https://www.youtube.com/@bootdotdev"),]
+        if split_nodes != expected_result:
+            raise Exception("AssertSplitNodesLinks did not return expected result!")
+
 
         
            
