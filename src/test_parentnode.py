@@ -22,10 +22,6 @@ class TestParentNode(unittest.TestCase):
         node = ParentNode("page", [LeafNode("h1", "Introduction"), ParentNode("div", [LeafNode("p", "First paragraph text"), LeafNode("p", "Second paragraph text")]), LeafNode("i", "italic text"), LeafNode(None, "Normal text")],)
         self.assertToHtmlTwoDepthChildren(node)
 
-    #def test_to_html_three_depth_children(self):
-
-    #def test_to_html_four_depth_children(self):
-
     def assertEqual(self, node, node2):
         if node.__eq__(node2) == True:
             return True

@@ -76,6 +76,9 @@ def clean_dest(dest_dir, parent_path = "", is_dir = False):
                 os.rmdir(path)
                 print(f"{path} has been successfully removed")
     return
+
+def extract_title(markdown):
+    print(f"extract title called")
     
 
 
