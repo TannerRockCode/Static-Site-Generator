@@ -5,13 +5,6 @@ class MarkDownParse:
     def __init__(self):
         self
 
-    def create_prev_type_node(self, node_string, prev_type):
-        return TextNode(node_string, prev_type)
-    
-    def parse_delimiter_text_orig(self, old_node, delimiter, text_type):
-        old_node_text = old_node.text
-        split_on_delimiter = re.split(f'(?={re.escape(delimiter)})', old_node_text)
-
     def parse_delimiter_text(self, old_node_parts, old_node, delimiter, text_type):
         new_nodes_list = []
         for index, value in enumerate(old_node_parts):
