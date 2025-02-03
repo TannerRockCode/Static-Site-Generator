@@ -32,7 +32,6 @@ class TestParentNode(unittest.TestCase):
             return True
         raise Exception("ParentNode Assert Equal did not return expected result.")
 
-
     def assertToHtmlOneDepthChildren(self, node):
         html_result = node.to_html()
         if html_result == "<p><b>Bold text</b>Normal text<i>italic text</i>Normal text</p>":

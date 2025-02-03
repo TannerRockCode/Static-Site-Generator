@@ -63,8 +63,6 @@ class MarkDownParse:
                 new_nodes_list.append(new_node)
         return new_nodes_list
 
-
-
     def parse_delimiter_text(self, old_node_parts, old_node, delimiter, text_type):
         new_nodes_list = []
         for index, value in enumerate(old_node_parts):

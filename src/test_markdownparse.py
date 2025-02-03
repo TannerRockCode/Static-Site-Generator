@@ -2,6 +2,7 @@ import unittest
 
 from textnode import TextNode, TextType 
 from markdownparse import MarkDownParse
+from blockmarkdownparse import BlockMarkDownParse
 
 class TestMarkDownParse(unittest.TestCase):
     
@@ -38,7 +39,7 @@ class TestMarkDownParse(unittest.TestCase):
     def test_text_to_nodes(self):
         orig_string = "This is **text** with an *italic* word and a `code block` and an ![obi wan image](https://i.imgur.com/fJRm4Vk.jpeg) and a [link](https://boot.dev)"
         self.assertTextToTextNodes(orig_string)
-        
+
     def assertSplitNodesDelimiterTwoBold(self, new_nodes):
         expected_nodes_list = [TextNode("This is text with a ", TextType.TEXT), TextNode("bolded phrase", TextType.BOLD), TextNode(" in the middle", TextType.TEXT), TextNode("This is text", TextType.BOLD), TextNode(" with a bolded phrase in the beginning", TextType.TEXT)]
         if new_nodes != expected_nodes_list:
