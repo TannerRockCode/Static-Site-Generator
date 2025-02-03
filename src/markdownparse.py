@@ -18,14 +18,16 @@ class MarkDownParse:
         split_text_list = re.split(r"\!\[(.*?)\]\((.*?)\)", old_node.text)
         image_text = ""
         image_prop = ""
-        if len(split_text_list) < 2:
-            raise Exception("SplitMarkdownImages: Did not find image markdown")
+
+        if len(split_text_list) == 1:
+            return [old_node]
+        
         for index, value in enumerate(split_text_list):
             if value == '':
                 continue
             if index % 3 == 0:
                 new_node = TextNode(value, old_node.text_type)
-                new_nodes_list.append(new_node)
+                new_nodes_list.append(new_node) 
             if index % 3 == 1: 
                 image_text = value 
                 image_type = TextType.IMAGE 
@@ -42,8 +44,8 @@ class MarkDownParse:
         split_text_list = re.split(r"\[(.*?)\]\((.*?)\)", old_node.text)
         link_text = ""
         link_prop = ""
-        if len(split_text_list) < 2:
-            raise Exception("SplitMarkdownLinks: Did not find image markdown")
+        if len(split_text_list) == 1:
+            return [old_node]
         for index, value in enumerate(split_text_list):
             if value == '':
                 continue
@@ -103,6 +105,16 @@ class MarkDownParse:
             split_links_list = self.split_markdown_links(old_node)
             new_nodes_list.extend(split_links_list)
         return new_nodes_list
+    
+    def text_to_textnodes(self, text):
+        orig_node = TextNode(text, TextType.TEXT)
+        orig_nodes_w_code = self.split_nodes_delimiter([orig_node], "`", TextType.CODE)
+        orig_nodes_w_bold = self.split_nodes_delimiter(orig_nodes_w_code, "**", TextType.BOLD) 
+        orig_nodes_w_italic = self.split_nodes_delimiter(orig_nodes_w_bold, "*", TextType.ITALIC)
+        orig_nodes_w_images = self.split_nodes_image(orig_nodes_w_italic)
+        orig_nodes_w_links = self.split_nodes_link(orig_nodes_w_images)
+        final_nodes = orig_nodes_w_links
+        return final_nodes
 
     def get_mark_down_type(delimiter):
         match delimiter:

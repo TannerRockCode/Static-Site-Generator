@@ -25,8 +25,6 @@ def gen_site_files():
     copy_src_to_dest(src_dir, dest_dir)
 
 def copy_src_to_dest(src_dir, dest_dir, cur_path = ""):
-    #if cur_path is None:
-        #return
 
     src_dir_list = os.listdir(src_dir)
 

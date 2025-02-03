@@ -35,6 +35,10 @@ class TestMarkDownParse(unittest.TestCase):
         node = TextNode("This is text with a link [to boot dev](https://www.boot.dev) and [to youtube](https://www.youtube.com/@bootdotdev)", TextType.TEXT)
         self.assertSplitNodesLinks([node])
 
+    def test_text_to_nodes(self):
+        orig_string = "This is **text** with an *italic* word and a `code block` and an ![obi wan image](https://i.imgur.com/fJRm4Vk.jpeg) and a [link](https://boot.dev)"
+        self.assertTextToTextNodes(orig_string)
+        
     def assertSplitNodesDelimiterTwoBold(self, new_nodes):
         expected_nodes_list = [TextNode("This is text with a ", TextType.TEXT), TextNode("bolded phrase", TextType.BOLD), TextNode(" in the middle", TextType.TEXT), TextNode("This is text", TextType.BOLD), TextNode(" with a bolded phrase in the beginning", TextType.TEXT)]
         if new_nodes != expected_nodes_list:
@@ -73,6 +77,23 @@ class TestMarkDownParse(unittest.TestCase):
         expected_result = [TextNode("This is text with a link ", TextType.TEXT), TextNode("to boot dev", TextType.LINK, "https://www.boot.dev"), TextNode(" and ", TextType.TEXT), TextNode("to youtube", TextType.LINK, "https://www.youtube.com/@bootdotdev"),]
         if split_nodes != expected_result:
             raise Exception("AssertSplitNodesLinks did not return expected result!")
+    
+    def assertTextToTextNodes(self, orig_string):
+        markdown = MarkDownParse()
+        result = markdown.text_to_textnodes(orig_string)
+        expected_result = [    TextNode("This is ", TextType.TEXT),
+            TextNode("text", TextType.BOLD),
+            TextNode(" with an ", TextType.TEXT),
+            TextNode("italic", TextType.ITALIC),
+            TextNode(" word and a ", TextType.TEXT),
+            TextNode("code block", TextType.CODE),
+            TextNode(" and an ", TextType.TEXT),
+            TextNode("obi wan image", TextType.IMAGE, "https://i.imgur.com/fJRm4Vk.jpeg"),
+            TextNode(" and a ", TextType.TEXT),
+            TextNode("link", TextType.LINK, "https://boot.dev"),]
+        
+        if result != expected_result:
+            raise Exception("AssertTextToTextNodes: result did not match expected output!")
 
 
         
