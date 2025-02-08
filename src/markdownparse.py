@@ -80,8 +80,9 @@ class MarkDownParse:
 
     def split_nodes_delimiter(self, old_nodes, delimiter, text_type):
         new_nodes = []
-        
+        #print(f"old_nodes: {old_nodes}")
         for old_node in old_nodes:
+            #print(f"old_node: {old_node}")
             old_node_parts = old_node.text.split(delimiter)
             if len(old_node_parts) % 2 == 0:
                 raise Exception("SplitNodeDelimiter: Odd number of delimiters - missing delimiter")

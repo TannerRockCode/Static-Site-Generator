@@ -17,7 +17,13 @@ class HTMLNode:
         return all_html_str
     
     def __repr__(self):
-        print(f"Tag: {self.tag} Value: {self.value} Children: {self.children} Props: {self.props}")
+        if self.tag != None and self.children != None and self.value == None and self.props == None:
+            return f"Tag: {self.tag} Children: {self.children}"
+        if self.tag != None and self.value != None and self.children == None and self.props == None:
+            return f"Tag: {self.tag} Value: {self.value}"
+        if self.tag != None and self.value == None and self.children == None and self.props == None:
+            return f"Tag: {self.tag}"
+        return f"Tag: {self.tag} Value: {self.value} Children: {self.children} Props: {self.props}"
 
     def __eq__(self, node2):
         if (self.tag == node2.tag and self.value == node2.value and self.children == node2.children and self.props == node2.props):

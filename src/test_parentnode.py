@@ -36,14 +36,14 @@ class TestParentNode(unittest.TestCase):
         html_result = node.to_html()
         if html_result == "<p><b>Bold text</b>Normal text<i>italic text</i>Normal text</p>":
             return True
-        print(f"Expected result: <p><b>Bold text</b>Normal text<i>italic text</i>Normal text</p>")
-        print(f"Actual result: {html_result}")
+        #print(f"Expected result: <p><b>Bold text</b>Normal text<i>italic text</i>Normal text</p>")
+        #print(f"Actual result: {html_result}")
         raise Exception("assertToHtmlOneDepthChildren did not return expected output.")
     
     def assertToHtmlTwoDepthChildren(self, node):
         html_result = node.to_html()
         if html_result == "<page><h1>Introduction</h1><div><p>First paragraph text</p><p>Second paragraph text</p></div><i>italic text</i>Normal text</page>":
             return True
-        print(f"Expected result: <page><h1>Introduction</h1><div><p>First paragraph text</p><p>Second paragraph text</p></div><b>Bold text</b>Normal text<i>italic text</i>Normal text</page>")
-        print(f"Actual result: {html_result}")
+        #print(f"Expected result: <page><h1>Introduction</h1><div><p>First paragraph text</p><p>Second paragraph text</p></div><b>Bold text</b>Normal text<i>italic text</i>Normal text</page>")
+        #print(f"Actual result: {html_result}")
         raise Exception("assertToHtmlTwoDepthChildren did not return expected output.")
