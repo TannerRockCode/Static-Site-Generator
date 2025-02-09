@@ -1,11 +1,12 @@
 import os, shutil
+from generate_page import GeneratePage
 from textnode import TextNode, TextType
 print("Hello World")
 
 
 def main():
     textnode = TextNode("This is a text node", TextType.BOLD, "https://www.boot.dev")
-    print(f"{textnode.__repr__()}")
+    #print(f"{textnode.__repr__()}")
     gen_site_files()
 
 def gen_site_files():
@@ -23,6 +24,13 @@ def gen_site_files():
 
     #copy all contents from source directory to destination directory
     copy_src_to_dest(src_dir, dest_dir)
+
+    #generate index html
+    generate_page = GeneratePage()
+    from_path = generate_page.markdown_path
+    template_path = generate_page.template_path
+    dest_path = generate_page.destination_path
+    result = generate_page.generate_page(from_path, template_path, dest_path)
 
 def copy_src_to_dest(src_dir, dest_dir, cur_path = ""):
 
