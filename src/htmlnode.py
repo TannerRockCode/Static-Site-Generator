@@ -14,7 +14,7 @@ class HTMLNode:
         #print(f"prop_copy: {prop_copy}")
         #print(f"prop_copy_type: {type(prop_copy)}")
         if type(prop_copy) is str:
-            return f" href= prop_copy"
+            return f" href= {prop_copy}"
         for key, value in prop_copy.items():
             #print(f"key, value: {key}, {value}")
             cur_html_str = ('{k}= "{v}"').format(k = key, v = value)

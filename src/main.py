@@ -30,7 +30,8 @@ def gen_site_files():
     from_path = generate_page.markdown_path
     template_path = generate_page.template_path
     dest_path = generate_page.destination_path
-    result = generate_page.generate_page(from_path, template_path, dest_path)
+    generate_page.generate_pages_recursive(from_path, template_path, dest_path)
+    generate_page.generate_pages_recursive(generate_page.content_path,template_path, dest_path)
 
 def copy_src_to_dest(src_dir, dest_dir, cur_path = ""):
 
@@ -62,12 +63,13 @@ def copy_src_to_dest(src_dir, dest_dir, cur_path = ""):
     return
 
 def clean_dest(dest_dir, parent_path = "", is_dir = False):
+    print(f"Destination dir: {dest_dir}")
     dest_dir_list = os.listdir(dest_dir)
     if len(dest_dir_list) == 0:
         #print(f"Destination Directory is empty do not need to clear contents")
         return  
 
-    #print(f"Destination Directory List: {dest_dir_list}")
+    print(f"Destination Directory List: {dest_dir_list}")
 
     for entry in dest_dir_list:
         path = os.path.join(dest_dir, entry)
